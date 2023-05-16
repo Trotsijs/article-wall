@@ -25,7 +25,8 @@ class ApiClient
 
         foreach ($postData as $post) {
             $author = $this->fetchUserById($post->userId);
-            $postCollection[] = new Article($post->userId, $author->getUsername(), $post->id, $post->title, $post->body);
+            $postCollection[] = new Article($post->userId, $author->getUsername(), $post->id, $post->title,
+                $post->body);
         }
 
         return $postCollection;
@@ -38,7 +39,14 @@ class ApiClient
         $postData = json_decode($response->getBody()->getContents());
         $author = $this->fetchUserById($postData->userId);
 
-        return new Article($postData->userId, $author->getUsername(), $postData->id, $postData->title, $postData->body);
+        return new Article
+        (
+            $postData->userId,
+            $author->getUsername(),
+            $postData->id,
+            $postData->title,
+            $postData->body
+        );
     }
 
     public function fetchUsers(): array
@@ -66,7 +74,15 @@ class ApiClient
     {
         $response = $this->client->get('https://jsonplaceholder.typicode.com/users/' . $id);
         $userData = json_decode($response->getBody()->getContents());
-        return new User($userData->id, $userData->username, $userData->name, $userData->email, $userData->website);
+
+        return new User
+        (
+            $userData->id,
+            $userData->username,
+            $userData->name,
+            $userData->email,
+            $userData->website
+        );
     }
 
     public function fetchComments(int $id): array
@@ -99,7 +115,15 @@ class ApiClient
 
         foreach ($postData as $post) {
             $author = $this->fetchUserById($post->userId);
-            $postCollection[] = new Article($post->userId, $author->getUsername(), $post->id, $post->title, $post->body);
+
+            $postCollection[] = new Article
+            (
+                $post->userId,
+                $author->getUsername(),
+                $post->id,
+                $post->title,
+                $post->body
+            );
         }
 
         return $postCollection;
