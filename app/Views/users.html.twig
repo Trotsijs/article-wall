@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="flex items-center justify-center flex flex-wrap">
+    <div class="mb-20 flex items-center justify-center flex flex-wrap">
         {% for user in users %}
             <a href="/users/{{ user.id }}"
                class="shadow-gray shadow-2xl content-center mt-10 ml-11 mr-5 block h-56 w-96 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-white dark:border-gray-700 dark:hover:bg-white">
