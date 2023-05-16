@@ -5,12 +5,13 @@ namespace App\Core;
 use App\Controllers\ArticleController;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use function FastRoute\simpleDispatcher;
 
 class Router
 {
     public static function response(): ?TwigView
     {
-        $dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $router) {
+        $dispatcher = simpleDispatcher(function (RouteCollector $router) {
             $router->addRoute('GET', '/', [ArticleController::class, 'index']);
             $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
             $router->addRoute('GET', '/users', [ArticleController::class, 'users']);

@@ -10,4 +10,3 @@ $response = Router::response();
 $renderer = new Renderer(__DIR__ . '/../App/Views');
 
 echo $renderer->render($response);
-

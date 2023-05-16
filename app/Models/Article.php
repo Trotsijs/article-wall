@@ -10,10 +10,16 @@ class Article
     private string $title;
     private string $body;
 
-    public function __construct(int $userId, string $author, int $postId, string $title, string $body)
-    {
+    public function __construct
+    (
+        int $userId,
+        string $author,
+        int $postId,
+        string $title,
+        string $body
+    ) {
         $this->userId = $userId;
-        $this->author= $author;
+        $this->author = $author;
         $this->postId = $postId;
         $this->title = $title;
         $this->body = $body;
@@ -23,6 +29,7 @@ class Article
     {
         return $this->userId;
     }
+
     public function getAuthor(): string
     {
         return $this->author;
