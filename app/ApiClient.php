@@ -86,10 +86,18 @@ class ApiClient
     public function fetchUsers(): array
     {
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/users');
-            $userData = json_decode($response->getBody()->getContents());
 
             $userCollection = [];
+
+            if (!Cache::has('users')) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/users');
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('users', $responseJson);
+            } else {
+                $responseJson = Cache::get('users');
+            }
+
+            $userData = json_decode($responseJson);
 
             foreach ($userData as $user) {
                 $userCollection[] = new User
@@ -112,8 +120,16 @@ class ApiClient
     public function fetchUserById($id): ?User
     {
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/users/' . $id);
-            $userData = json_decode($response->getBody()->getContents());
+
+            if (!Cache::has('user' . $id)) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/users/' . $id);
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('user' . $id, $responseJson);
+            } else {
+                $responseJson = Cache::get('user' . $id);
+            }
+
+            $userData = json_decode($responseJson);
 
             return new User
             (
@@ -132,8 +148,16 @@ class ApiClient
     public function fetchComments(int $id): array
     {
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/comments?postId=' . $id);
-            $commentData = json_decode($response->getBody()->getContents());
+
+            if (!Cache::has('comments' . $id)) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/comments?postId=' . $id);
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('comments' . $id, $responseJson);
+            } else {
+                $responseJson = Cache::get('comments' . $id);
+            }
+
+            $commentData = json_decode($responseJson);
 
             $commentsCollection = [];
 
@@ -158,8 +182,16 @@ class ApiClient
     public function fetchArticlesByUser(int $id): array
     {
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/posts?userId=' . $id);
-            $postData = json_decode($response->getBody()->getContents());
+
+            if (!Cache::has('userArticles' . $id)) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/posts?userId=' . $id);
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('userArticles' . $id, $responseJson);
+            } else {
+                $responseJson = Cache::get('userArticles' . $id);
+            }
+
+            $postData = json_decode($responseJson);
 
             $postCollection = [];
 
