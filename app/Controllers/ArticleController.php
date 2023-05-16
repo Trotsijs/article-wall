@@ -26,7 +26,8 @@ class ArticleController
 
     public function singleArticle(array $vars): TwigView
     {
-        $article = $this->client->fetchSingleArticle((int)implode('', $vars));
+        $articleId = $vars['id'] ?? null;
+        $article = $this->client->fetchSingleArticle((int) $articleId);
         $comments = $this->client->fetchComments($article->getPostId());
 
         return new TwigView('singleArticle', ['article' => $article, 'comments' => $comments]);
@@ -34,8 +35,8 @@ class ArticleController
 
     public function singleUser(array $vars): TwigView
     {
-
-        $user = $this->client->fetchUserById((int)implode('', $vars));
+        $userId = $vars['id'] ?? null;
+        $user = $this->client->fetchUserById((int) $userId);
         $articles = $this->client->fetchArticlesByUser($user->getId());
 
         return new TwigView('singleUser', ['user' => $user, 'articles' => $articles]);
