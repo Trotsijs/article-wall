@@ -20,12 +20,19 @@ class ApiClient
     public function fetchArticles(): array
     {
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/posts/');
-            $postData = json_decode($response->getBody()->getContents());
-
             $postCollection = [];
 
-            foreach ($postData as $post) {
+            if (!Cache::has('articles')) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/posts/');
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('articles', $responseJson);
+            } else {
+                $responseJson = Cache::get('articles');
+            }
+
+            $posts = json_decode($responseJson);
+
+            foreach ($posts as $post) {
                 $author = $this->fetchUserById($post->userId);
                 $postCollection[] = new Article
                 (
@@ -48,17 +55,26 @@ class ApiClient
     {
 
         try {
-            $response = $this->client->get('https://jsonplaceholder.typicode.com/posts/' . $id);
-            $postData = json_decode($response->getBody()->getContents());
-            $author = $this->fetchUserById($postData->userId);
+
+            if (!Cache::has('article' . $id)) {
+                $response = $this->client->get('https://jsonplaceholder.typicode.com/posts/' . $id);
+                $responseJson = $response->getBody()->getContents();
+                Cache::remember('article' . $id, $responseJson);
+            } else {
+                $responseJson = Cache::get('article' . $id);
+            }
+
+            $user = json_decode($responseJson);
+
+            $author = $this->fetchUserById($user->userId);
 
             return new Article
             (
-                $postData->userId,
+                $user->userId,
                 $author->getUsername(),
-                $postData->id,
-                $postData->title,
-                $postData->body
+                $user->id,
+                $user->title,
+                $user->body
             );
 
         } catch (GuzzleException $exception) {
