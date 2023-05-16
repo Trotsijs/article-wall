@@ -34,6 +34,7 @@ class ArticleController
 
     public function singleUser(array $vars): TwigView
     {
+
         $user = $this->client->fetchUserById((int)implode('', $vars));
         $articles = $this->client->fetchArticlesByUser($user->getId());
 

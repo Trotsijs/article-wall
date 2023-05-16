@@ -1,6 +1,6 @@
 # <img src="https://freepngimg.com/thumb/newspaper/7-2-newspaper-free-download-png.png" width=50 height=50% alt="image"> News You Don't Need [![PHP 7.4](https://img.shields.io/badge/PHP-7.4-grey?labelColor=777BB4)](https://www.php.net/)
 
-Displays Information about Characters from the show.
+Displays News You Don't Need.
 
 ### Preview:
 
