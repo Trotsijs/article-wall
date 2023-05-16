@@ -15,14 +15,16 @@
     </div>
     <p class="mt-5 text-center text-2xl font-medium">Articles ({{ articles|length }})</p>
     <div class="mb-20 grid place-items-center">
-    {% for article in articles %}
-        <a href="/article/{{ article.postId }}">
+        {% for article in articles %}
+
             <div class="w-2/5 ">
                 <div class="h-10 lg:w-34 bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                 </div>
                 <div class="shadow-gray shadow-2xl border-r border-b border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="">
-                        <div class="text-gray-900 font-bold text-xl">{{ article.title|capitalize }}</div>
+                        <a href="/article/{{ article.postId }}">
+                            <div class="text-gray-900 font-bold text-xl">{{ article.title|capitalize }}</div>
+                        </a>
                     </div>
                     <div class="flex items-center">
                         <div class="">
@@ -30,8 +32,8 @@
                         </div>
                     </div>
                 </div>
-        </a>
-        </div>
-    {% endfor %}
+            </div>
+        {% endfor %}
     </div>
+
 {% endblock %}
