@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\ApiClient;
 use App\Core\TwigView;
 use App\Exceptions\ResourceNotFoundException;
 use App\Services\User\IndexUserService;
