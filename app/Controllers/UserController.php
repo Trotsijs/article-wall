@@ -4,27 +4,34 @@ namespace App\Controllers;
 
 use App\ApiClient;
 use App\Core\TwigView;
+use App\Exceptions\ResourceNotFoundException;
+use App\Services\User\IndexUserService;
+use App\Services\User\Show\ShowUserRequest;
+use App\Services\User\Show\ShowUserService;
 
 class UserController
 {
-    private ApiClient $client;
-
-    public function __construct()
-    {
-        $this->client = new ApiClient();
-    }
-
     public function index(): TwigView
     {
-        return new TwigView('users', ['users' => $this->client->fetchUsers()]);
+        $service = new IndexUserService();
+        $users = $service->execute();
+
+        return new TwigView('users', ['users' => $users]);
     }
 
-    public function show(array $vars): TwigView
+    public function show(array $vars): ?TwigView
     {
-        $userId = $vars['id'] ?? null;
-        $user = $this->client->fetchUserById((int)$userId);
-        $articles = $this->client->fetchArticlesByUser($user->getId());
+        try {
+            $userId = $vars['id'] ?? null;
+            $service = new ShowUserService();
+            $response = $service->execute(new ShowUserRequest((int)$userId));
 
-        return new TwigView('singleUser', ['user' => $user, 'articles' => $articles]);
+            return new TwigView('singleUser', [
+                'user' => $response->getUser(),
+                'articles' => $response->getArticles(),
+            ]);
+        } catch (ResourceNotFoundException $exception) {
+            return null; //  add TwigView not found page
+        }
     }
 }

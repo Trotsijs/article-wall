@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\TwigView;
-use App\Exceptions\ArticleNotFoundException;
+use App\Exceptions\ResourceNotFoundException;
 use App\Services\Article\IndexArticleService;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
@@ -29,7 +29,7 @@ class ArticleController
                 'article' => $response->getArticle(),
                 'comments' => $response->getComments(),
             ]);
-        } catch (ArticleNotFoundException $exception) {
+        } catch (ResourceNotFoundException $exception) {
             return null; //  add TwigView not found page
         }
     }
