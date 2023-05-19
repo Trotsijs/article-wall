@@ -4,12 +4,12 @@
     <div class="mb-20 flex items-center justify-center flex flex-wrap">
         {% for user in users %}
             <a href="/users/{{ user.id }}"
-               class="shadow-gray shadow-2xl content-center mt-10 ml-11 mr-5 block h-56 w-96 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-white dark:border-gray-700 dark:hover:bg-white">
+               class="shadow-black shadow-xl content-center mt-10 ml-11 mr-5 block h-56 w-96 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-white dark:border-gray-700 dark:hover:bg-white">
                 <h5 class="text-2xl text-center mb-2 font-bold tracking-tight text-black dark:text-black">{{ user.name }}</h5>
                 <h6 class="font-semibold text-center font-normal text-gray-700 dark:text-gray-400">"{{ user.username }}
                     "</h6>
                 <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
-                <p class="text-center font-normal text-gray-700 dark:text-gray-400">{{ user.email }}</p>
+                <p class="text-center font-normal text-gray-700 dark:text-gray-400">{{ user.email|lower }}</p>
             </a>
         {% endfor %}
     </div>

@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Controllers\ArticleController;
+use App\Controllers\UserController;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -14,9 +15,9 @@ class Router
         $dispatcher = simpleDispatcher(function (RouteCollector $router) {
             $router->addRoute('GET', '/', [ArticleController::class, 'index']);
             $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
-            $router->addRoute('GET', '/users', [ArticleController::class, 'users']);
-            $router->addRoute('GET', '/article/{id:\d+}', [ArticleController::class, 'singleArticle']);
-            $router->addRoute('GET', '/users/{id:\d+}', [ArticleController::class, 'singleUser']);
+            $router->addRoute('GET', '/users', [UserController::class, 'index']);
+            $router->addRoute('GET', '/article/{id:\d+}', [ArticleController::class, 'show']);
+            $router->addRoute('GET', '/users/{id:\d+}', [UserController::class, 'show']);
 
         });
 

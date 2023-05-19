@@ -9,11 +9,12 @@
             </div>
         </div>
     </div>
-    <div class="mt-20 text-center pb-12"><h1 class="text-4xl font-medium text-gray-700">{{ user.name }}
-            <span class="font-light text-gray-500">({{ user.username }})</span></h1>
-        <p class="font-light text-gray-600 mt-3">{{ user.email }}<p>
+    <div class="mt-20 text-center pb-12">
+        <h1 class="text-4xl font-medium text-gray-700">{{ user.name }}</h1>
+        <span class="text-4xl font-light text-gray-500">({{ user.username }})</span>
+        <p class="font-light text-gray-600 mt-3">Email: {{ user.email|lower }}<p>
     </div>
-    <p class="mt-5 text-center text-2xl font-medium">Articles ({{ articles|length }})</p>
+    <p class="mt-5 text-center text-2xl font-medium">Posted Articles ({{ articles|length }})</p>
     <div class="mb-20 grid place-items-center">
         {% for article in articles %}
 

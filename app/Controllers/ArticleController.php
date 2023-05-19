@@ -2,43 +2,35 @@
 
 namespace App\Controllers;
 
-use App\ApiClient;
 use App\Core\TwigView;
+use App\Exceptions\ArticleNotFoundException;
+use App\Services\Article\IndexArticleService;
+use App\Services\Article\Show\ShowArticleRequest;
+use App\Services\Article\Show\ShowArticleService;
 
 class ArticleController
 {
-    private ApiClient $client;
-
-    public function __construct()
-    {
-        $this->client = new ApiClient();
-    }
-
     public function index(): TwigView
     {
-        return new TwigView('articles', ['articles' => $this->client->fetchArticles()]);
+        $service = (new IndexArticleService());
+        $articles = $service->execute();
+
+        return new TwigView('articles', ['articles' => $articles]);
     }
 
-    public function users(): TwigView
+    public function show(array $vars): ?TwigView
     {
-        return new TwigView('users', ['users' => $this->client->fetchUsers()]);
-    }
+        try {
+            $articleId = $vars['id'] ?? null;
+            $service = new ShowArticleService();
+            $response = $service->execute(new ShowArticleRequest((int) $articleId));
 
-    public function singleArticle(array $vars): TwigView
-    {
-        $articleId = $vars['id'] ?? null;
-        $article = $this->client->fetchSingleArticle((int) $articleId);
-        $comments = $this->client->fetchComments($article->getPostId());
-
-        return new TwigView('singleArticle', ['article' => $article, 'comments' => $comments]);
-    }
-
-    public function singleUser(array $vars): TwigView
-    {
-        $userId = $vars['id'] ?? null;
-        $user = $this->client->fetchUserById((int) $userId);
-        $articles = $this->client->fetchArticlesByUser($user->getId());
-
-        return new TwigView('singleUser', ['user' => $user, 'articles' => $articles]);
+            return new TwigView('singleArticle', [
+                'article' => $response->getArticle(),
+                'comments' => $response->getComments(),
+            ]);
+        } catch (ArticleNotFoundException $exception) {
+            return null; //  add TwigView not found page
+        }
     }
 }
