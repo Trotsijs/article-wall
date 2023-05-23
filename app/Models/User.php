@@ -24,7 +24,6 @@ class User
         $this->name = $name;
         $this->email = $email;
         $this->website = $website;
-
     }
 
     public function getId(): int
@@ -46,7 +45,6 @@ class User
     {
         return $this->name;
     }
-
 
     public function getWebsite(): string
     {

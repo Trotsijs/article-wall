@@ -2,18 +2,18 @@
 
 namespace App\Services\Article;
 
-use App\ApiClient;
+use App\Repositories\ArticleRepository;
 
 class IndexArticleService
 {
-    private ApiClient $client;
+    private ArticleRepository $articleRepository;
 
     public function __construct()
     {
-        $this->client = new ApiClient();
+        $this->articleRepository = new ArticleRepository();
     }
     public function execute(): array
     {
-        return $this->client->fetchArticles();
+        return $this->articleRepository->all();
     }
 }

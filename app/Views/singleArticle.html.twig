@@ -5,8 +5,8 @@
         <div class="shadow-black shadow-2xl w-2/5 mt-10 mb-10 mr-10 bg-black">
             <img class="" src="https://placehold.co/800x600?text=News" alt=""/>
             <div class="p-5">
-                <a href="/users/{{ article.userId }}" class="">
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Published by: {{ article.author }}</p>
+                <a href="/users/{{ article.author.id }}" class="">
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Published by: {{ article.author.username }}</p>
                 </a>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
                 {% for i in range(1, 10) %}

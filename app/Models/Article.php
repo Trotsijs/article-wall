@@ -4,40 +4,42 @@ namespace App\Models;
 
 class Article
 {
-    private int $userId;
-    private string $author;
-    private int $postId;
+    private int $id;
+    private int $authorId;
     private string $title;
     private string $body;
+    private string $avatar;
+    private ?User $author = null;
+
 
     public function __construct
     (
-        int $userId,
-        string $author,
-        int $postId,
+        int $id,
+        int $authorId,
         string $title,
-        string $body
+        string $body,
+        string $avatar
     ) {
-        $this->userId = $userId;
-        $this->author = $author;
-        $this->postId = $postId;
+        $this->id = $id;
+        $this->authorId = $authorId;
         $this->title = $title;
         $this->body = $body;
+        $this->avatar = $avatar;
     }
 
-    public function getUserId(): int
+    public function getId(): int
     {
-        return $this->userId;
+        return $this->id;
     }
 
-    public function getAuthor(): string
+    public function getAuthorId(): int
     {
-        return $this->author;
+        return $this->authorId;
     }
 
-    public function getPostId(): int
+    public function getBody(): string
     {
-        return $this->postId;
+        return $this->body;
     }
 
     public function getTitle(): string
@@ -45,8 +47,19 @@ class Article
         return $this->title;
     }
 
-    public function getBody(): string
+    public function getAvatar(): string
     {
-        return $this->body;
+        return $this->avatar;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author)
+    {
+        $this->author = $author;
     }
 }
+
