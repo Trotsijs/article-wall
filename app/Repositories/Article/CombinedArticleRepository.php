@@ -22,7 +22,7 @@ class CombinedArticleRepository implements ArticleRepository
         $articles = array_merge($jsonArticles, $randomArticles);
 
         shuffle($articles);
-        
+
         return $articles;
     }
 
