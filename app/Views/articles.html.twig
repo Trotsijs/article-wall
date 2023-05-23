@@ -5,14 +5,14 @@
         {% for article in articles %}
             <div class="shadow-black shadow-2xl w-2/5 mt-10 mb-10 mr-10 bg-black">
                 <a href="" class="">
-                    <img class="" src="{{ article.avatar }}" alt=""/>
+                    <img class="" src="https://placehold.co/800x400?text=News" alt=""/>
                 </a>
                 <div class="p-5">
-                    <a href="/users/{{ article.id }}">
+                    <a href="/users/{{ article.userId }}">
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Author: <span
                                     class="hover:text-sky-700">{{ article.author }}</span></p>
                     </a>
-                    <a href="/article/{{ article.id }}">
+                    <a href="/article/{{ article.postId }}">
                         <h5 class="hover:text-sky-700 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
                     </a>
                 </div>

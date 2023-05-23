@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Repositories;
+namespace App\Repositories\Comment;
 
 use App\Cache;
 use App\Models\Comment;
@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 
-class CommentRepository
+class JsonPlaceholderCommentRepository implements CommentRepository
 {
     private Client $client;
 

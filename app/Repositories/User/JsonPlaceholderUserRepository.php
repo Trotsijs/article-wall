@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Repositories;
+namespace App\Repositories\User;
 
 use App\Cache;
 use App\Models\User;
@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 
-class UserRepository
+class JsonPlaceholderUserRepository implements UserRepository
 {
     private Client $client;
 

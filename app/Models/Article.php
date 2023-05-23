@@ -62,4 +62,3 @@ class Article
         $this->author = $author;
     }
 }
-

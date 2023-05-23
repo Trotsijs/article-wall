@@ -2,7 +2,8 @@
 
 namespace App\Services\Article;
 
-use App\Repositories\ArticleRepository;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
 
 class IndexArticleService
 {
@@ -10,7 +11,7 @@ class IndexArticleService
 
     public function __construct()
     {
-        $this->articleRepository = new ArticleRepository();
+        $this->articleRepository = new JsonPlaceholderArticleRepository();
     }
     public function execute(): array
     {
