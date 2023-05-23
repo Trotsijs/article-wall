@@ -3,18 +3,32 @@
 namespace App\Services\Article;
 
 use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\CombinedArticleRepository;
 use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\Article\RandomArticleRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\UserRepository;
 
 class IndexArticleService
 {
     private ArticleRepository $articleRepository;
+    private UserRepository $userRepository;
 
     public function __construct()
     {
-        $this->articleRepository = new JsonPlaceholderArticleRepository();
+        $this->articleRepository = new CombinedArticleRepository();
+        $this->userRepository = new JsonPlaceholderUserRepository();
     }
+
     public function execute(): array
     {
-        return $this->articleRepository->all();
+        $articles = $this->articleRepository->all();
+
+        foreach ($articles as $article) {
+            $author = $this->userRepository->getById($article->getAuthorId());
+            $article->setAuthor($author);
+        }
+
+        return $articles;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services\User\Show;
 
 use App\Exceptions\ResourceNotFoundException;
+use App\Models\Article;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\JsonPlaceholderArticleRepository;
 use App\Repositories\User\JsonPlaceholderUserRepository;
@@ -18,6 +19,7 @@ class ShowUserService
         $this->userRepository = new JsonPlaceholderUserRepository();
         $this->articleRepository = new JsonPlaceholderArticleRepository();
     }
+
     public function execute(ShowUserRequest $request): ShowUserResponse
     {
         $user = $this->userRepository->getById($request->getUserId());
@@ -27,6 +29,11 @@ class ShowUserService
         }
 
         $articles = $this->articleRepository->getByUserId($user->getId());
+
+        /** @var Article $article */
+        foreach ($articles as $article) {
+            $article->setAuthor($this->userRepository->getById($article->getAuthorId()));
+        }
 
         return new ShowUserResponse($user, $articles);
     }
