@@ -8,6 +8,7 @@ class CombinedArticleRepository implements ArticleRepository
 {
     private ArticleRepository $jsonPlaceholderArticleRepository;
     private ArticleRepository $randomArticleRepository;
+
     public function __construct()
     {
         $this->jsonPlaceholderArticleRepository = new JsonPlaceholderArticleRepository();
@@ -18,7 +19,11 @@ class CombinedArticleRepository implements ArticleRepository
     {
         $jsonArticles = $this->jsonPlaceholderArticleRepository->all();
         $randomArticles = $this->randomArticleRepository->all();
-        return array_merge($jsonArticles, $randomArticles);
+        $articles = array_merge($jsonArticles, $randomArticles);
+
+        shuffle($articles);
+        
+        return $articles;
     }
 
     public function getById(int $id): ?Article
