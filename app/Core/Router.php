@@ -6,8 +6,6 @@ use App\Controllers\ArticleController;
 use App\Controllers\UserController;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\CombinedArticleRepository;
-use App\Repositories\Article\JsonPlaceholderArticleRepository;
-use App\Repositories\Article\RandomArticleRepository;
 use App\Repositories\User\JsonPlaceholderUserRepository;
 use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
