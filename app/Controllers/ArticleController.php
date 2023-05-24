@@ -10,10 +10,15 @@ use App\Services\Article\Show\ShowArticleService;
 
 class ArticleController
 {
+    private IndexArticleService $indexArticleService;
+    public function __construct(IndexArticleService $indexArticleService)
+    {
+        $this->indexArticleService = $indexArticleService;
+    }
+
     public function index(): TwigView
     {
-        $service = (new IndexArticleService());
-        $articles = $service->execute();
+        $articles = $this->indexArticleService->execute();
 
         return new TwigView('articles', ['articles' => $articles]);
     }

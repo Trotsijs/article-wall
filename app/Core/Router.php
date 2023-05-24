@@ -4,6 +4,13 @@ namespace App\Core;
 
 use App\Controllers\ArticleController;
 use App\Controllers\UserController;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\CombinedArticleRepository;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\Article\RandomArticleRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\UserRepository;
+use DI\ContainerBuilder;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -12,6 +19,13 @@ class Router
 {
     public static function response(): ?TwigView
     {
+        $builder = new ContainerBuilder();
+        $builder->addDefinitions([
+            ArticleRepository::class => new CombinedArticleRepository(), // <--
+            UserRepository::class => new JsonPlaceholderUserRepository()
+        ]);
+        $container = $builder->build();
+
         $dispatcher = simpleDispatcher(function (RouteCollector $router) {
             $router->addRoute('GET', '/', [ArticleController::class, 'index']);
             $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
@@ -43,9 +57,11 @@ class Router
                 $vars = $routeInfo[2];
 
                 [$controllerName, $methodName] = $handler;
-                /** @var TwigView $response */
 
-                $response = (new $controllerName)->{$methodName}($vars);
+                $controller = $container->get($controllerName);
+
+                /** @var TwigView $response */
+                $response = $controller->{$methodName}($vars);
 
                 return $response;
         }
