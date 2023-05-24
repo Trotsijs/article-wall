@@ -6,9 +6,11 @@ use App\Controllers\ArticleController;
 use App\Controllers\UserController;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\CombinedArticleRepository;
+use App\Repositories\Article\PdoArticleRepository;
 use App\Repositories\User\JsonPlaceholderUserRepository;
 use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
+use Dotenv\Dotenv;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -17,9 +19,12 @@ class Router
 {
     public static function response(): ?TwigView
     {
+        $dotenv = Dotenv::createImmutable('../');
+        $dotenv->load();
+
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
-            ArticleRepository::class => new CombinedArticleRepository(), // <--
+            ArticleRepository::class => new PdoArticleRepository(),
             UserRepository::class => new JsonPlaceholderUserRepository()
         ]);
         $container = $builder->build();
