@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\TwigView;
 use App\Exceptions\ResourceNotFoundException;
+use App\Repositories\Article\PdoArticleRepository;
+use App\Services\Article\CreateArticleService;
 use App\Services\Article\IndexArticleService;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
@@ -11,9 +13,16 @@ use App\Services\Article\Show\ShowArticleService;
 class ArticleController
 {
     private IndexArticleService $indexArticleService;
-    public function __construct(IndexArticleService $indexArticleService)
+    private CreateArticleService $createArticleService;
+
+    public function __construct
+    (
+        IndexArticleService $indexArticleService,
+        CreateArticleService $createArticleService
+    )
     {
         $this->indexArticleService = $indexArticleService;
+        $this->createArticleService = $createArticleService;
     }
 
     public function index(): TwigView
@@ -28,7 +37,7 @@ class ArticleController
         try {
             $articleId = $vars['id'] ?? null;
             $service = new ShowArticleService();
-            $response = $service->execute(new ShowArticleRequest((int) $articleId));
+            $response = $service->execute(new ShowArticleRequest((int)$articleId));
 
             return new TwigView('singleArticle', [
                 'article' => $response->getArticle(),
@@ -37,5 +46,17 @@ class ArticleController
         } catch (ResourceNotFoundException $exception) {
             return null; //  add TwigView not found page
         }
+    }
+
+    public function create(): TwigView
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'] ?? '';
+            $content = $_POST['content'] ?? '';
+
+            $this->createArticleService->execute($title, $content);
+        }
+
+        return new TwigView('createArticle', []);
     }
 }
