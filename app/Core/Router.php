@@ -5,7 +5,6 @@ namespace App\Core;
 use App\Controllers\ArticleController;
 use App\Controllers\UserController;
 use App\Repositories\Article\ArticleRepository;
-use App\Repositories\Article\CombinedArticleRepository;
 use App\Repositories\Article\PdoArticleRepository;
 use App\Repositories\User\JsonPlaceholderUserRepository;
 use App\Repositories\User\UserRepository;

@@ -2,10 +2,11 @@
 
 {% block content %}
     <div class="mb-20 grid place-items-center">
-        <div class="flex justify-center mt-5">
+        <div class="flex justify-center mr-10 mt-10">
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Edit Article</button>
             <form method="POST" action="/delete" onsubmit="return confirm('Are you sure you want to delete this article?');">
                 <input type="hidden" name="articleId" value="{{ article.id }}">
-                <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded">Delete</button>
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Article</button>
             </form>
         </div>
         <div class="shadow-black shadow-2xl w-2/5 mt-10 mb-10 mr-10 bg-black flex">
