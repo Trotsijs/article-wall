@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 use App\Core\TwigView;
 use App\Exceptions\ResourceNotFoundException;
-use App\Repositories\Article\PdoArticleRepository;
 use App\Services\Article\CreateArticleService;
+use App\Services\Article\DeleteArticleService;
 use App\Services\Article\IndexArticleService;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
@@ -14,15 +14,17 @@ class ArticleController
 {
     private IndexArticleService $indexArticleService;
     private CreateArticleService $createArticleService;
+    private DeleteArticleService $deleteArticleService;
 
     public function __construct
     (
         IndexArticleService $indexArticleService,
-        CreateArticleService $createArticleService
-    )
-    {
+        CreateArticleService $createArticleService,
+        DeleteArticleService $deleteArticleService
+    ) {
         $this->indexArticleService = $indexArticleService;
         $this->createArticleService = $createArticleService;
+        $this->deleteArticleService = $deleteArticleService;
     }
 
     public function index(): TwigView
@@ -58,5 +60,13 @@ class ArticleController
         }
 
         return new TwigView('createArticle', []);
+    }
+
+    public function delete(): TwigView
+    {
+        $articleId = (int) $_POST['articleId'];
+        $this->deleteArticleService->execute($articleId);
+
+        return $this->index();
     }
 }

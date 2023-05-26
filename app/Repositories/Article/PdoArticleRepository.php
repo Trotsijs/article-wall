@@ -77,6 +77,15 @@ class PdoArticleRepository implements ArticleRepository
 
     }
 
+    public function delete(int $id)
+    {
+        $this->queryBuilder
+            ->delete('articles')
+            ->where('id = ?')
+            ->setParameter(1, $id)
+            ->executeStatement();
+    }
+
     private function buildModel(array $article): Article
     {
         return new Article(

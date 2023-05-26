@@ -37,6 +37,7 @@ class Router
             $router->addRoute('GET', '/users/{id:\d+}', [UserController::class, 'show']);
             $router->addRoute('GET', '/post', [ArticleController::class, 'create']);
             $router->addRoute('POST', '/post', [ArticleController::class, 'create']);
+            $router->addRoute('POST', '/delete', [ArticleController::class, 'delete']);
 
         });
 
