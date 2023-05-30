@@ -35,4 +35,9 @@ class CombinedArticleRepository implements ArticleRepository
     {
         return $this->randomArticleRepository->getByUserId($userId);
     }
+
+    public function save(Article $article): void
+    {
+        // TODO: Implement save() method.
+    }
 }

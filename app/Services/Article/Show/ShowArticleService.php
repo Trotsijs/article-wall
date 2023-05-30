@@ -4,7 +4,6 @@ namespace App\Services\Article\Show;
 
 use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\Article\ArticleRepository;
-use App\Repositories\Article\PdoArticleRepository;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceholderCommentRepository;
 use App\Repositories\User\JsonPlaceholderUserRepository;
@@ -17,9 +16,9 @@ class ShowArticleService
     private UserRepository $userRepository;
     private CommentRepository $commentRepository;
 
-    public function __construct()
+    public function __construct(ArticleRepository $articleRepository)
     {
-        $this->articleRepository = new PdoArticleRepository();
+        $this->articleRepository = $articleRepository;
         $this->userRepository = new JsonPlaceholderUserRepository();
         $this->commentRepository = new JsonPlaceholderCommentRepository();
     }

@@ -3,23 +3,36 @@
 {% block content %}
     <div class="mb-20 grid place-items-center">
         <div class="flex justify-center mr-10 mt-10">
-            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Edit Article</button>
-            <form method="POST" action="/delete" onsubmit="return confirm('Are you sure you want to delete this article?');">
+            <form method="GET" action="/articles/{{ article.id }}/edit">
                 <input type="hidden" name="articleId" value="{{ article.id }}">
-                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Article</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                    Edit Article
+                </button>
             </form>
+
+            <form method="POST" action="/delete"
+                  onsubmit="return confirm('Are you sure you want to delete this article?');">
+                <input type="hidden" name="articleId" value="{{ article.id }}">
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete
+                    Article
+                </button>
+            </form>
+
         </div>
         <div class="shadow-black shadow-2xl w-2/5 mt-10 mb-10 mr-10 bg-black flex">
             <div>
                 <img class="" src="{{ article.avatar }}" alt=""/>
                 <div class="p-5">
                     <a href="/users/{{ article.author.id }}" class="">
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Published by: {{ article.author.username }}</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Published
+                            by: {{ article.author.username }}</p>
                     </a>
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
-                    {% for i in range(1, 10) %}
-                        <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ article.body|capitalize }}.</span>
-                    {% endfor %}
+
+                    <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ article.content }}</span>
+
+                    <p class="mt-8 mb-3 text-gray-700 dark:text-gray-400"><span
+                                class="font-bold">Published:</span> {{ article.createdAt }}</p>
                     <p class="mt-8 font-bold mb-3 text-gray-700 dark:text-gray-400">Comments ({{ comments|length }})</p>
                     {% for comment in comments %}
                         <div class="mb-3 px-3 py-3 border-2">
@@ -27,7 +40,8 @@
                                 <span class="inline-block align-middle mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
                                          class="main-grid-item-icon"
-                                         fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                         fill="none" stroke="currentColor" stroke-linecap="round"
+                                         stroke-linejoin="round"
                                          stroke-width="2">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                     <circle cx="12" cy="7" r="4"/>
@@ -36,7 +50,8 @@
                                 <span class="align-middle capitalize">{{ comment.name }}</span>
                                 <span class="font-normal text-sm text-gray-600"> ({{ comment.email }})</span>
                             </p>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ comment.body|capitalize }}.</p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ comment.body|capitalize }}
+                                .</p>
                         </div>
                     {% endfor %}
                 </div>

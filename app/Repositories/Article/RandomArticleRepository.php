@@ -29,10 +29,16 @@ class RandomArticleRepository implements ArticleRepository
     {
         return new Article(
             1,
-            1,
             'Article ' . rand(1, 100),
             'Article body',
-            'https://placehold.co/800x400?text=Random'
+            'https://placehold.co/800x400?text=Random',
+            null,
+            1,
         );
+    }
+
+    public function save(Article $article): void
+    {
+        // TODO: Implement save() method.
     }
 }

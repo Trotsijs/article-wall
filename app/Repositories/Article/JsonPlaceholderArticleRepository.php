@@ -100,4 +100,9 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
             return [];
         }
     }
+
+    public function save(Article $article): void
+    {
+        // TODO: Implement save() method.
+    }
 }

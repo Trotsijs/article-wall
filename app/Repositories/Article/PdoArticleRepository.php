@@ -46,7 +46,7 @@ class PdoArticleRepository implements ArticleRepository
             ->select('*')
             ->from('articles')
             ->where('id = ?')
-            ->setParameter(1, $id)
+            ->setParameter(0, $id)
             ->fetchAssociative();
 
         if (!$article) {
@@ -58,7 +58,18 @@ class PdoArticleRepository implements ArticleRepository
 
     public function getByUserId(int $userId): array
     {
-        return [];
+        $articles = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->where('user_id = ?')
+            ->setParameter(0, $userId)
+            ->fetchAllAssociative();
+
+        $articlesCollection = [];
+        foreach ($articles as $article) {
+            $articlesCollection[] = $this->buildModel($article);
+        }
+
+        return $articlesCollection;
     }
 
     public function create(string $title, string $content): int
@@ -73,6 +84,7 @@ class PdoArticleRepository implements ArticleRepository
             ->setParameter(1, $title)
             ->setParameter(2, $content)
             ->executeStatement();
+
         return (int)$this->connection->lastInsertId();
 
     }
@@ -83,17 +95,59 @@ class PdoArticleRepository implements ArticleRepository
             ->delete('articles')
             ->where('id = ?')
             ->setParameter(1, $id)
-            ->executeStatement();
+            ->executeQuery();
     }
 
     private function buildModel(array $article): Article
     {
         return new Article(
-            (int)$article['id'],
             (int)$article['user_id'],
             $article['title'],
             $article['content'],
-            'https://placehold.co/800x400?text=News'
+            'https://placehold.co/800x400?text=News',
+            $article['created_at'],
+            (int)$article['id']
         );
+    }
+
+    public function save(Article $article): void
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+
+        if ($article->getId() === null) {
+
+            $queryBuilder
+                ->insert('articles')
+                ->values(
+                    [
+                        'title' => '?',
+                        'user_id' => '?',
+                        'content' => '?',
+                        'created_at' => '?',
+                    ]
+                )
+                ->setParameter(0, $article->getTitle())
+                ->setParameter(1, $article->getAuthorId())
+                ->setParameter(2, $article->getContent())
+                ->setParameter(3, $article->getCreatedAt());
+
+            $queryBuilder->executeQuery();
+
+            $article->setId((int)$this->connection->lastInsertId());
+
+        } else {
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->update('articles')
+                ->set('title', '?')
+                ->set('content', '?')
+                ->where('id = ?')
+                ->setParameter(0, $article->getTitle())
+                ->setParameter(1, $article->getContent())
+                ->setParameter(2, $article->getId());
+
+
+            $queryBuilder->executeQuery();
+        }
     }
 }

@@ -3,20 +3,20 @@
 {% block content %}
     <div class="grid mt-20 place-items-center">
 
-        <form class="border 1px shadow-grey shadow-xl w-3/5 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/post" method="POST">
+        <form class="border 1px shadow-grey shadow-xl w-3/5 bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/articles" method="POST">
             <div class="mb-4">
                 <h1 class="text-2xl font-semibold mb-10 text-center">Publish New Article</h1>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Enter Article Title:</label>
-                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Enter the title">
+                <input class="bg-gray-100 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Enter the title">
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="body">Write your Article:</label>
-                <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="4" placeholder="Enter text"></textarea>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="content">Write your Article:</label>
+                <textarea class="bg-gray-100 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="content" name="content" rows="4" placeholder="Enter text"></textarea>
             </div>
 
             <div class="flex items-center justify-center">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Publish</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Publish</button>
             </div>
         </form>
     </div>

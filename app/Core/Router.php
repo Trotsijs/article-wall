@@ -29,13 +29,20 @@ class Router
         $container = $builder->build();
 
         $dispatcher = simpleDispatcher(function (RouteCollector $router) {
+
+            // Users
             $router->addRoute('GET', '/', [ArticleController::class, 'index']);
-            $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
             $router->addRoute('GET', '/users', [UserController::class, 'index']);
-            $router->addRoute('GET', '/article/{id:\d+}', [ArticleController::class, 'show']);
             $router->addRoute('GET', '/users/{id:\d+}', [UserController::class, 'show']);
-            $router->addRoute('GET', '/post', [ArticleController::class, 'create']);
-            $router->addRoute('POST', '/post', [ArticleController::class, 'create']);
+
+            //Articles
+            $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
+            $router->addRoute('GET', '/articles/{id:\d+}', [ArticleController::class, 'show']);
+            $router->addRoute('GET', '/articles/post', [ArticleController::class, 'create']);
+            $router->addRoute('POST', '/articles', [ArticleController::class, 'store']);
+
+            $router->addRoute('GET', '/articles/{id:\d+}/edit', [ArticleController::class, 'edit']);
+            $router->addRoute('POST', '/articles/{id:\d+}', [ArticleController::class, 'update']);
             $router->addRoute('POST', '/delete', [ArticleController::class, 'delete']);
 
         });

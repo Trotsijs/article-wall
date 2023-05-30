@@ -8,13 +8,14 @@
                     <img class="" src="{{ article.avatar }}" alt=""/>
                 </a>
                 <div class="p-5">
+                    <a href="/articles/{{ article.id }}">
+                        <h5 class="hover:text-yellow-500 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
+                    </a>
                     <a href="/users/{{ article.author.id }}">
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Author: <span
-                                    class="hover:text-sky-700">{{ article.author.username }}</span></p>
+                        <p class="mt-10 mb-1 font-normal text-gray-700 dark:text-gray-400">Author: <span
+                                    class="hover:text-yellow-500">{{ article.author.username }}</span></p>
                     </a>
-                    <a href="/article/{{ article.id }}">
-                        <h5 class="hover:text-sky-700 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
-                    </a>
+                    <p class=" mb-3 text-gray-700 dark:text-gray-400">Published: {{ article.createdAt }}</p>
                 </div>
             </div>
         {% endfor %}
