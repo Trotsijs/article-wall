@@ -1,6 +1,17 @@
-# <img src="https://freepngimg.com/thumb/newspaper/7-2-newspaper-free-download-png.png" width=50 height=50% alt="image"> News You Don't Need [![PHP 7.4](https://img.shields.io/badge/PHP-7.4-grey?labelColor=777BB4)](https://www.php.net/)
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://i.ibb.co/9ryr3ky/forguthyb.png" width="400"></a></p>
 
-Displays News You Don't Need.
+<p align="center">
+<span>Displays News You Don't Need.</span><br>
+</p>
+<p align="center">
+<a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-7.4-grey?labelColor=777BB4" alt="PHP 7.4"></a>
+</p>
+
+
+
+
+
+
 
 ### Preview:
 

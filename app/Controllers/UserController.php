@@ -4,16 +4,27 @@ namespace App\Controllers;
 
 use App\Core\TwigView;
 use App\Exceptions\ResourceNotFoundException;
-use App\Services\User\IndexUserService;
+use App\Repositories\User\UserRepository;
+use App\Services\User\Index\IndexUserService;
 use App\Services\User\Show\ShowUserRequest;
 use App\Services\User\Show\ShowUserService;
 
 class UserController
 {
+
+    private ShowUserService $showUserService;
+    private IndexUserService $indexUserService;
+
+    public function __construct(ShowUserService $showUserService, IndexUserService $indexUserService)
+    {
+
+        $this->showUserService = $showUserService;
+        $this->indexUserService = $indexUserService;
+    }
+
     public function index(): TwigView
     {
-        $service = new IndexUserService();
-        $users = $service->execute();
+        $users = $this->indexUserService->execute();
 
         return new TwigView('users', ['users' => $users]);
     }
@@ -22,8 +33,8 @@ class UserController
     {
         try {
             $userId = $vars['id'] ?? null;
-            $service = new ShowUserService();
-            $response = $service->execute(new ShowUserRequest((int)$userId));
+
+            $response = $this->showUserService->execute(new ShowUserRequest((int)$userId));
 
             return new TwigView('singleUser', [
                 'user' => $response->getUser(),

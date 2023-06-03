@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Services\Article\IndexArticleService;
+use App\Services\Article\Index\IndexArticleService;
 
 class ArticlesCommand
 {

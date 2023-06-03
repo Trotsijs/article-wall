@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article;
+namespace App\Services\Article\Delete;
 
 use App\Repositories\Article\PdoArticleRepository;
 

@@ -3,10 +3,11 @@
 namespace App\Core;
 
 use App\Controllers\ArticleController;
+use App\Controllers\RegisterController;
 use App\Controllers\UserController;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\PdoArticleRepository;
-use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\User\PdoUserRepository;
 use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
@@ -16,7 +17,7 @@ use function FastRoute\simpleDispatcher;
 
 class Router
 {
-    public static function response(): ?TwigView
+    public static function response(): ?Response
     {
         $dotenv = Dotenv::createImmutable('../');
         $dotenv->load();
@@ -24,7 +25,7 @@ class Router
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
             ArticleRepository::class => new PdoArticleRepository(),
-            UserRepository::class => new JsonPlaceholderUserRepository()
+            UserRepository::class => new PdoUserRepository()
         ]);
         $container = $builder->build();
 
@@ -44,6 +45,9 @@ class Router
             $router->addRoute('GET', '/articles/{id:\d+}/edit', [ArticleController::class, 'edit']);
             $router->addRoute('POST', '/articles/{id:\d+}', [ArticleController::class, 'update']);
             $router->addRoute('POST', '/delete', [ArticleController::class, 'delete']);
+
+            $router->addRoute('GET', '/register', [RegisterController::class, 'showForm']);
+            $router->addRoute('POST', '/register', [RegisterController::class, 'save']);
 
         });
 

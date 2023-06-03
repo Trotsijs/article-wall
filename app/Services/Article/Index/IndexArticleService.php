@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article;
+namespace App\Services\Article\Index;
 
+use App\Models\Article;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\User\UserRepository;
 

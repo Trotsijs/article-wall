@@ -9,4 +9,10 @@ require '../vendor/autoload.php';
 $response = Router::response();
 $renderer = new Renderer(__DIR__ . '/../App/Views');
 
-echo $renderer->render($response);
+if ($response instanceof \App\Core\TwigView) {
+    echo $renderer->render($response);
+}
+
+if ($response instanceof \App\Core\Redirect) {
+    header('Location: ' . $response->getLocation());
+}

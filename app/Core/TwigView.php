@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-class TwigView
+class TwigView implements Response
 {
     private string $path;
     private array $data;

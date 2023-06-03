@@ -14,10 +14,10 @@ class ShowUserService
     private UserRepository $userRepository;
     private ArticleRepository $articleRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository, ArticleRepository $articleRepository)
     {
-        $this->userRepository = new JsonPlaceholderUserRepository();
-        $this->articleRepository = new JsonPlaceholderArticleRepository();
+        $this->userRepository = $userRepository;
+        $this->articleRepository = $articleRepository;
     }
 
     public function execute(ShowUserRequest $request): ShowUserResponse
@@ -30,7 +30,7 @@ class ShowUserService
 
         $articles = $this->articleRepository->getByUserId($user->getId());
 
-        /** @var Article $article */
+
         foreach ($articles as $article) {
             $article->setAuthor($this->userRepository->getById($article->getAuthorId()));
         }

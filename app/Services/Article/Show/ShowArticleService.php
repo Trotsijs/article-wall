@@ -16,10 +16,10 @@ class ShowArticleService
     private UserRepository $userRepository;
     private CommentRepository $commentRepository;
 
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository, UserRepository $userRepository)
     {
         $this->articleRepository = $articleRepository;
-        $this->userRepository = new JsonPlaceholderUserRepository();
+        $this->userRepository = $userRepository;
         $this->commentRepository = new JsonPlaceholderCommentRepository();
     }
 

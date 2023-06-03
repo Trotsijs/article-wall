@@ -2,12 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Core\Redirect;
 use App\Core\TwigView;
 use App\Exceptions\ResourceNotFoundException;
 use App\Services\Article\Create\CreateArticleRequest;
 use App\Services\Article\Create\CreateArticleService;
-use App\Services\Article\DeleteArticleService;
-use App\Services\Article\IndexArticleService;
+use App\Services\Article\Delete\DeleteArticleService;
+use App\Services\Article\Index\IndexArticleService;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
 use App\Services\Article\Update\UpdateArticleRequest;
@@ -63,7 +64,7 @@ class ArticleController
         return new TwigView('createArticle', []);
     }
 
-    public function store()
+    public function store(): Redirect
     {
             $createArticleResponse = $this->createArticleService->execute(
                 new CreateArticleRequest(
@@ -74,7 +75,7 @@ class ArticleController
 
             $article = $createArticleResponse->getArticle();
 
-            header('Location: /articles/' . $article->getId());
+            return new Redirect('/articles/' . $article->getId());
     }
 
     public function edit(array $vars): TwigView
@@ -88,7 +89,7 @@ class ArticleController
         ]);
     }
 
-    public function update(array $vars)
+    public function update(array $vars): Redirect
     {
 
             $response = $this->updateArticleService->execute(
@@ -101,7 +102,7 @@ class ArticleController
 
             $article = $response->getArticle();
 
-            header('Location: /articles/' . $article->getId()) . '/edit';
+            return new Redirect(header('/articles/' . $article->getId()) . '/edit');
 
     }
 

@@ -1,36 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Services\User\Register;
 
-class User
+class RegisterRequest
 {
-    private ?int $id;
     private string $name;
     private string $email;
     private string $password;
+    private string $passwordConfirmation;
 
-    public function __construct
-    (
+    public function __construct(
         string $name,
         string $email,
         string $password,
-        ?int $id = null
-
+        string $passwordConfirmation
     ) {
+
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
-        $this->id = $id;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
+        $this->passwordConfirmation = $passwordConfirmation;
     }
 
     public function getName(): string
@@ -38,14 +27,18 @@ class User
         return $this->name;
     }
 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setId(int $id): void
+    public function getPasswordConfirmation(): string
     {
-        $this->id = $id;
+        return $this->passwordConfirmation;
     }
-
 }

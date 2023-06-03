@@ -25,11 +25,11 @@
                 <div class="p-5">
                     <a href="/users/{{ article.author.id }}" class="">
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Published
-                            by: {{ article.author.username }}</p>
+                            by: {{ article.author.name }}</p>
                     </a>
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
+                    <h5 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ article.title|capitalize }}</h5>
 
-                    <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ article.content }}</span>
+                    <p class="text-justify mb-3 font-normal text-gray-700 dark:text-gray-400">{{ article.content }}</p>
 
                     <p class="mt-8 mb-3 text-gray-700 dark:text-gray-400"><span
                                 class="font-bold">Published:</span> {{ article.createdAt }}</p>
