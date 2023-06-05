@@ -1,10 +1,11 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://i.ibb.co/9ryr3ky/forguthyb.png" width="400"></a></p>
 
 <p align="center">
-<span>Displays News You Don't Need.</span><br>
+<span><strong>Displays News You Don't Need.</strong></span><br>
 </p>
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-7.4-grey?labelColor=777BB4" alt="PHP 7.4"></a>
+<a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/-MySQL-4479A1?logo=mysql&logoColor=white" alt="MySQL"></a>
 </p>
 
 
@@ -12,7 +13,8 @@
 
 <p>My news article / blog webpage offers a seamless experience with
 features like registration, login, article creation, editing, and deletion.
-Users can easily create accounts, publish articles, and engage with the platform.</p>
+Users can easily create accounts, publish articles, and engage with the platform.
+All the user and article data is stored in a MySQL Database.</p>
 
 
 ### Preview:
