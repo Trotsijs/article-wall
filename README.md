@@ -25,7 +25,7 @@ Users: <br><br>
 <img src="add.gif" alt="locations" height="400" width="800">
 
 Single User: <br><br>
-<img src="edot-delete" alt="locations" height="400" width="800">
+<img src="edit-delete.gif" alt="locations" height="400" width="800">
 
 ### Installation:
 
