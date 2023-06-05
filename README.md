@@ -16,7 +16,7 @@
 ### Preview:
 
 Home: <br><br>
-<img src="home.png" alt="home">
+<img src="home.gif" alt="home">
 
 Single Article: <br><br>
 <img src="singlearticle.png" alt="singlearticle">

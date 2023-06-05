@@ -133,7 +133,7 @@ class PdoUserRepository implements UserRepository {
             ->setParameter(0, $email)
             ->fetchAssociative();
 
-        if (!$user) {
+        if (!$user || !password_verify($password, $user['password'])) {
             return null;
         }
 
