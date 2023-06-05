@@ -8,9 +8,11 @@
 </p>
 
 
+### About:
 
-
-
+<p>My news article / blog webpage offers a seamless experience with
+features like registration, login, article creation, editing, and deletion.
+Users can easily create accounts, publish articles, and engage with the platform.</p>
 
 
 ### Preview:
