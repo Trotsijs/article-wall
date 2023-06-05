@@ -52,5 +52,5 @@ php -S localhost:8000
 
 ### Resources:
 
-* [Jsonplaceholder](https://jsonplaceholder.typicode.com/)
-* [Placehold](https://placehold.co/)
+* [Lorem Picsum](https://picsum.photos/)
+* [Pravatar](https://pravatar.cc/)
