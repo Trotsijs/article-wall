@@ -39,9 +39,14 @@ class ArticleController
 
     public function index(): TwigView
     {
-        $articles = $this->indexArticleService->execute();
+        try {
+            $articles = $this->indexArticleService->execute();
 
-        return new TwigView('articles', ['articles' => $articles]);
+            return new TwigView('articles', ['articles' => $articles]);
+        } catch (ResourceNotFoundException $exception) {
+            return new TwigView('notFound', []);
+        }
+
     }
 
     public function show(array $vars): ?TwigView
@@ -55,59 +60,77 @@ class ArticleController
                 'comments' => $response->getComments(),
             ]);
         } catch (ResourceNotFoundException $exception) {
-            return null; //  add TwigView not found page
+            return new TwigView('notFound', []);
         }
     }
 
     public function create(): TwigView
     {
-        return new TwigView('createArticle', []);
+        $isLoggedIn = $_SESSION['authId'] ?? null;
+
+        if ($isLoggedIn) {
+            return new TwigView('createArticle', []);
+        } else {
+            return new TwigView('notAuthorised', []);
+        }
+
+
     }
 
     public function store(): Redirect
     {
-            $createArticleResponse = $this->createArticleService->execute(
-                new CreateArticleRequest(
-                    $_POST['title'],
-                    $_POST['content']
-                )
-            );
+        $createArticleResponse = $this->createArticleService->execute(
+            new CreateArticleRequest(
+                $_POST['title'],
+                $_POST['content'],
+                'https://picsum.photos/id/' . rand(1, 300) . '/800/400',
+            )
+        );
 
-            $article = $createArticleResponse->getArticle();
+        $article = $createArticleResponse->getArticle();
 
-            return new Redirect('/articles/' . $article->getId());
+        return new Redirect('/articles/' . $article->getId());
     }
 
     public function edit(array $vars): TwigView
     {
-        $response = $this->showArticleService->execute(
-            new ShowArticleRequest((int) $vars['id'])
-        );
+        $isLoggedIn = $_SESSION['authId'] ?? null;
 
-        return new TwigView('editArticle', [
-            'article' => $response->getArticle()
-        ]);
+        if ($isLoggedIn) {
+            $response = $this->showArticleService->execute(
+                new ShowArticleRequest((int)$vars['id'])
+            );
+
+            return new TwigView('editArticle', [
+                'article' => $response->getArticle(),
+            ]);
+        } else {
+            return new TwigView('notAuthorised', []);
+        }
+
+
     }
 
     public function update(array $vars): Redirect
     {
 
-            $response = $this->updateArticleService->execute(
-                new UpdateArticleRequest(
-                    (int) $vars['id'],
-                    $_POST['title'],
-                    $_POST['content']
-                )
-            );
+        $response = $this->updateArticleService->execute(
+            new UpdateArticleRequest(
+                (int)$vars['id'],
+                $_POST['title'],
+                $_POST['content']
+            )
+        );
 
-            $article = $response->getArticle();
+        $article = $response->getArticle();
 
-            return new Redirect(header('/articles/' . $article->getId()) . '/edit');
+        return new Redirect(header('/articles/') . $article->getId());
 
     }
 
     public function delete(): TwigView
     {
+
         $articleId = (int)$_POST['articleId'];
         $this->deleteArticleService->execute($articleId);
 

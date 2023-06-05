@@ -17,6 +17,11 @@ class Renderer
 
     public function render(TwigView $twigView): string
     {
+        $errors = $_SESSION['errors'] ?? null;
+        $this->twig->addGlobal('errors', $errors);
+        $author = $_SESSION['authId'] ?? null;
+        $this->twig->addGlobal('authId', $author);
+
         return $this->twig->render($twigView->getPath() . '.html.twig', $twigView->getData());
     }
 }

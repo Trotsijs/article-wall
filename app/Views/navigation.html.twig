@@ -1,6 +1,6 @@
 <nav class="sticky top-0 bg-black shadow-grey shadow-2xl">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/articles" class="flex items-center">
+        <a href="/" class="flex items-center">
             <img src="https://i.ibb.co/2PL1zgs/logo.png" class="h-10 mr-3 logo"
                  alt="logo"/>
         </a>
@@ -15,15 +15,26 @@
                        class="block bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md">Users</a>
                 </li>
                 <li>
-                    <a href="articles/post"
+                    {% if authId %}
+                    <a href="/articles/post"
                        class="block bg-purple-500 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md">Publish
                         Article</a>
+                    {% endif %}
                 </li>
-                <li>
-                    <a href="/register"
-                       class="ml-20 block bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-md">Log
-                        In</a>
-                </li>
+                {% if authId %}
+                    <li>
+                        <a href="/logout"
+                           class="ml-20 block bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md">Log
+                            Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="/login"
+                           class="ml-20 block bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-md">Log
+                            In</a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
     </div>

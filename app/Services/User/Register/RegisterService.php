@@ -17,20 +17,10 @@ class RegisterService
 
     public function execute(RegisterRequest $request): RegisterResponse
     {
-        $userExists = $this->userRepository->getByEmail($request->getEmail());
-
-        if ($userExists !== null) {
-            throw new InvalidArgumentException('User already registered');
-        }
-
-        if ($request->getPassword() !== $request->getPasswordConfirmation()) {
-            throw new InvalidArgumentException('Password does not match');
-        }
-
         $user = new User(
             $request->getName(),
             $request->getEmail(),
-            $request->getPassword()
+            password_hash($request->getPassword(), PASSWORD_DEFAULT)
         );
 
         $this->userRepository->save($user);

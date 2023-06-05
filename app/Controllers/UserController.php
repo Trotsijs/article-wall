@@ -41,7 +41,7 @@ class UserController
                 'articles' => $response->getArticles(),
             ]);
         } catch (ResourceNotFoundException $exception) {
-            return null; //  add TwigView not found page
+            return new TwigView('notFound', []);
         }
     }
 }

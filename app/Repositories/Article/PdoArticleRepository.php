@@ -72,7 +72,7 @@ class PdoArticleRepository implements ArticleRepository
         return $articlesCollection;
     }
 
-    public function create(string $title, string $content): int
+    public function create(string $title, string $content, string $avatar): int
     {
         $this->queryBuilder
             ->insert('articles')
@@ -80,9 +80,11 @@ class PdoArticleRepository implements ArticleRepository
                 'user_id' => 1,
                 'title' => '?',
                 'content' => '?',
+                'avatar' => '?',
             ])
             ->setParameter(1, $title)
             ->setParameter(2, $content)
+            ->setParameter(3, $avatar)
             ->executeStatement();
 
         return (int)$this->connection->lastInsertId();
@@ -104,7 +106,7 @@ class PdoArticleRepository implements ArticleRepository
             (int)$article['user_id'],
             $article['title'],
             $article['content'],
-            'https://placehold.co/800x400?text=News',
+            $article['avatar'],
             $article['created_at'],
             (int)$article['id']
         );
@@ -124,12 +126,14 @@ class PdoArticleRepository implements ArticleRepository
                         'user_id' => '?',
                         'content' => '?',
                         'created_at' => '?',
+                        'avatar' => '?',
                     ]
                 )
                 ->setParameter(0, $article->getTitle())
                 ->setParameter(1, $article->getAuthorId())
                 ->setParameter(2, $article->getContent())
-                ->setParameter(3, $article->getCreatedAt());
+                ->setParameter(3, $article->getCreatedAt())
+                ->setParameter(4, $article->getAvatar());
 
             $queryBuilder->executeQuery();
 

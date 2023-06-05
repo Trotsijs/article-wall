@@ -7,19 +7,16 @@ class RegisterRequest
     private string $name;
     private string $email;
     private string $password;
-    private string $passwordConfirmation;
 
     public function __construct(
         string $name,
         string $email,
-        string $password,
-        string $passwordConfirmation
+        string $password
     ) {
 
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
-        $this->passwordConfirmation = $passwordConfirmation;
     }
 
     public function getName(): string
@@ -35,10 +32,5 @@ class RegisterRequest
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function getPasswordConfirmation(): string
-    {
-        return $this->passwordConfirmation;
     }
 }

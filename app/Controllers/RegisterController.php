@@ -4,17 +4,21 @@ namespace App\Controllers;
 
 use App\Core\Redirect;
 use App\Core\TwigView;
+use App\Exceptions\ValidatorException;
 use App\Services\User\Register\RegisterRequest;
 use App\Services\User\Register\RegisterService;
+use App\Validation\RegisterFormValidation;
 
 class RegisterController
 {
     private RegisterService $registerService;
+    private RegisterFormValidation $validator;
 
-    public function __construct(RegisterService $registerService)
+    public function __construct(RegisterService $registerService, RegisterFormValidation $validator)
     {
 
         $this->registerService = $registerService;
+        $this->validator = $validator;
     }
 
     public function showForm(): TwigView
@@ -25,23 +29,30 @@ class RegisterController
     public function save(array $vars): Redirect
     {
         try {
-
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $passwordConfirmation = $_POST['password_confirmation'];
+            $this->validator->validateRegisterForm($_POST);
 
             $response = $this->registerService->execute(new RegisterRequest(
-                    $name, $email, $password, $passwordConfirmation
+                    $_POST['name'],
+                    $_POST['email'],
+                    $_POST['password']
                 )
             );
 
-            var_dump($response->getUser());die;
+            $_SESSION['authId'] = $response->getUser()->getId();
 
+            return new Redirect('/articles');
+
+        } catch (ValidatorException $exception) {
+            return new Redirect('/register');
         } catch (\Exception $exception) {
-
+            return new Redirect('/register');
         }
+    }
 
-        return new Redirect('/register');
+    public function logout(array $vars): Redirect
+    {
+        unset($_SESSION['authId']);
+
+        return new Redirect('/');
     }
 }

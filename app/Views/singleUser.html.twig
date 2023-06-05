@@ -1,39 +1,31 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <div class="mt-20 p-16">
-        <div class="relative">
-            <div class="w-48 h-48 bg-sky-700 mx-auto rounded-full shadow-3xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                <img class="items-center" src="https://placehold.co/100x100/0C6B9F/white?text={{ user.username }}"
-                     alt=""/>
-            </div>
+    <div class="mt-12 text-center pb-12">
+        <div class="">
+            <img class="shadow-gray shadow-2xl rounded-full mx-auto h-48 w-48 mb-6" src="https://i.pravatar.cc/150?img=69" alt="{{ user.name }}" />
+            <h1 class="text-4xl font-medium text-black">{{ user.name }}</h1>
         </div>
-    </div>
-    <div class="mt-20 text-center pb-12">
-        <h1 class="text-4xl font-medium text-gray-700">{{ user.name }}</h1>
-        <p class="font-light text-gray-600 mt-3">Email: {{ user.email|lower }}<p>
+        <p class="font-light text-black mt-3">Email: {{ user.email|lower }}</p>
     </div>
     <p class="mt-5 text-center text-2xl font-medium">Posted Articles ({{ articles|length }})</p>
     <div class="mb-20 grid place-items-center">
         {% for article in articles %}
-
-            <div class="w-2/5 ">
-                <div class="h-10 lg:w-34 bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
-                </div>
+            <div class="w-2/5">
+                <div class="h-10 lg:w-34 bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
                 <div class="shadow-gray shadow-2xl border-r border-b border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="">
-                        <a href="/article/{{ article.id }}">
-                            <div class="text-gray-900 font-bold text-xl">{{ article.title|capitalize }}</div>
+                        <a href="/articles/{{ article.id }}">
+                            <div class="hover:text-yellow-500 mb-5 text-gray-900 font-bold text-xl">{{ article.title|capitalize }}</div>
                         </a>
                     </div>
                     <div class="flex items-center">
                         <div class="">
-                            <p class="text-gray-900 leading-none">{{ article.content|capitalize }}</p>
+                            <p class="text-justify text-gray-900 leading-none">{{ article.content|capitalize }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-
 {% endblock %}

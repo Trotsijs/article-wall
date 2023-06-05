@@ -123,4 +123,20 @@ class PdoUserRepository implements UserRepository {
             $queryBuilder->executeQuery();
         }
     }
+
+    public function login(string $email, string $password): ?User
+    {
+        $user = $this->queryBuilder
+            ->select('*')
+            ->from('users')
+            ->where('email = ?')
+            ->setParameter(0, $email)
+            ->fetchAssociative();
+
+        if (!$user) {
+            return null;
+        }
+
+        return $this->buildModel($user);
+    }
 }

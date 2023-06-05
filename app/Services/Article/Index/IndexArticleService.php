@@ -2,7 +2,6 @@
 
 namespace App\Services\Article\Index;
 
-use App\Models\Article;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\User\UserRepository;
 

@@ -10,5 +10,6 @@ interface UserRepository
     public function getById(int $id): ?User;
     public function getByEmail(string $email): ?User;
     public function save(User $user): void;
+    public function login(string $email, string $password): ?User;
 
 }

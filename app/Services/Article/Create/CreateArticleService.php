@@ -17,10 +17,10 @@ class CreateArticleService
     public function execute(CreateArticleRequest $request): CreateArticleResponse
     {
         $article = new Article(
-            1,
+            $_SESSION['authId'],
             $request->getTitle(),
             $request->getContent(),
-            'https://placehold.co/800x400?text=ARTICLE'
+            'https://picsum.photos/id/'. rand(1, 300). '/800/400'
 
         );
 

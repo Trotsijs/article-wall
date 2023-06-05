@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Controllers\ArticleController;
+use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
 use App\Controllers\UserController;
 use App\Repositories\Article\ArticleRepository;
@@ -44,10 +45,17 @@ class Router
 
             $router->addRoute('GET', '/articles/{id:\d+}/edit', [ArticleController::class, 'edit']);
             $router->addRoute('POST', '/articles/{id:\d+}', [ArticleController::class, 'update']);
+
             $router->addRoute('POST', '/delete', [ArticleController::class, 'delete']);
 
             $router->addRoute('GET', '/register', [RegisterController::class, 'showForm']);
             $router->addRoute('POST', '/register', [RegisterController::class, 'save']);
+
+            $router->addRoute('GET', '/login', [LoginController::class, 'showForm']);
+            $router->addRoute('POST', '/login', [LoginController::class, 'login']);
+
+
+            $router->addRoute('GET', '/logout', [RegisterController::class, 'logout']);
 
         });
 
@@ -62,7 +70,7 @@ class Router
         $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                return null;
+                return new TwigView('notFound', []);
 
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];

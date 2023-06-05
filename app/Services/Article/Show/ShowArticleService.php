@@ -6,7 +6,6 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceholderCommentRepository;
-use App\Repositories\User\JsonPlaceholderUserRepository;
 use App\Repositories\User\UserRepository;
 
 
