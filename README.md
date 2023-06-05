@@ -15,16 +15,16 @@
 
 ### Preview:
 
-Home: <br><br>
+Home with all the articles: <br><br>
 <img src="home.gif" alt="home" height="400" width="800">
 
-Single Article: <br><br>
+Login page: <br><br>
 <img src="login.gif" alt="singlearticle" height="400" width="800">
 
-Users: <br><br>
+Add new article: <br><br>
 <img src="add.gif" alt="locations" height="400" width="800">
 
-Single User: <br><br>
+Edit or delete article: <br><br>
 <img src="edit-delete.gif" alt="locations" height="400" width="800">
 
 ### Installation:
