@@ -19,13 +19,13 @@ Home: <br><br>
 <img src="home.gif" alt="home" height="400" width="800">
 
 Single Article: <br><br>
-<img src="singlearticle.png" alt="singlearticle">
+<img src="login.gif" alt="singlearticle" height="400" width="800">
 
 Users: <br><br>
-<img src="users.png" alt="locations">
+<img src="add.gif" alt="locations" height="400" width="800">
 
 Single User: <br><br>
-<img src="singleuser.png" alt="locations">
+<img src="edot-delete" alt="locations" height="400" width="800">
 
 ### Installation:
 
